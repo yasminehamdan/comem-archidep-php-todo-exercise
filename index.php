@@ -1,11 +1,13 @@
 <?php
 
+$dbDefaults = parse_url(getenv('CLEARDB_DATABASE_URL') ?: getenv('TODOLIST_DB_URL') ?: "mysql://todolist@127.0.0.1:3306/todolist");
+
 define('BASE_URL', getenv('TODOLIST_BASE_URL') ?: '/');
-define('DB_USER', getenv('TODOLIST_DB_USER') ?: 'todolist');
-define('DB_PASS', getenv('TODOLIST_DB_PASS'));
-define('DB_NAME', getenv('TODOLIST_DB_NAME') ?: 'todolist');
-define('DB_HOST', getenv('TODOLIST_DB_HOST') ?: '127.0.0.1');
-define('DB_PORT', getenv('TODOLIST_DB_PORT') ?: '3306');
+define('DB_USER', getenv('TODOLIST_DB_USER') ?: $dbDefaults["user"]);
+define('DB_PASS', getenv('TODOLIST_DB_PASS') ?: $dbDefaults["pass"]);
+define('DB_NAME', getenv('TODOLIST_DB_NAME') ?: substr($dbDefaults["path"], 1));
+define('DB_HOST', getenv('TODOLIST_DB_HOST') ?: $dbDefaults["host"]);
+define('DB_PORT', getenv('TODOLIST_DB_PORT') ?: $dbDefaults["port"]);
 
 $db = new PDO('mysql:host='.DB_HOST.';port='.DB_PORT.';dbname='.DB_NAME, DB_USER, DB_PASS);
 $items = array();
