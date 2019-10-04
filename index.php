@@ -125,7 +125,7 @@ $items = $db->query($selectQuery);
         <?php foreach($items as $item): ?>
           <div class='list-group-item d-flex justify-content-between align-items-center<?php if($item['done']): ?> list-group-item-success<?php else: ?> list-group-item-warning<?php endif;?>'>
 
-            <div class='title'><?= $item['title'] ?></div>
+            <div class='title'><?= htmlspecialchars($item['title']) ?></div>
 
             <!-- Todo item controls -->
             <form action='<?= BASE_URL ?>' method='post'>
